@@ -90,7 +90,13 @@ void LauncherWindow::setup_ui() {
   GtkEventController *controller = gtk_event_controller_key_new();
   g_signal_connect(controller, "key-pressed", G_CALLBACK(on_key_press_static),
                    this);
+  g_signal_connect(controller, "key-pressed", G_CALLBACK(on_key_press_static),
+                   this);
   gtk_widget_add_controller(m_window, controller);
+
+  // Close on lost focus (click outside)
+  g_signal_connect(m_window, "notify::is-active",
+                   G_CALLBACK(on_focus_change_static), this);
 
   // Scrolled Window for apps
   GtkWidget *scrolled = gtk_scrolled_window_new();
@@ -226,5 +232,20 @@ static gboolean on_key_press_static(GtkEventControllerKey *controller,
     g_application_quit(G_APPLICATION(g_application_get_default()));
     return TRUE;
   }
-  return FALSE;
+  return TRUE;
+}
+return FALSE;
+}
+
+static void on_focus_change_static(GObject *object, GParamSpec *pspec,
+                                   gpointer user_data) {
+  auto *self = static_cast<LauncherWindow *>(user_data);
+  GtkWindow *window = GTK_WINDOW(object);
+  if (!gtk_window_is_active(window)) {
+    // GtkApplication* app =
+    // GTK_APPLICATION(gtk_window_get_application(window));
+    // g_application_quit(app);
+    // Safest:
+    g_application_quit(G_APPLICATION(g_application_get_default()));
+  }
 }

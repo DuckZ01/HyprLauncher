@@ -15,6 +15,8 @@ public:
                                       guint keyval, guint keycode,
                                       GdkModifierType state,
                                       gpointer user_data);
+  friend void on_focus_change_static(GObject *object, GParamSpec *pspec,
+                                     gpointer user_data);
   friend void search_changed_cb(GtkSearchEntry *entry,
                                 gpointer user_data); // if needed
 
