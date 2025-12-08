@@ -1,4 +1,4 @@
-# Hyprland App Launcher
+# HyprSwitcher
 
 A C++ application launcher built with GTK4 and gtk4-layer-shell, designed for Hyprland.
 
