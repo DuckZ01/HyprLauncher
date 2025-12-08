@@ -1,50 +1,95 @@
 # HyprSwitcher
 
 A C++ application launcher built with GTK4 and gtk4-layer-shell, designed for Hyprland.
+It features a modern design with rounded corners, transparency, and blur support, behaving similarly to Rofi but with a native GTK feel.
 
-## Features
+## Requirements
 
-- Search and launch installed applications.
-- Aesthetic design: Rounded corners, transparency, and blur support.
-- optimized for Hyprland (Layer Shell).
-
-## Prerequisites
-
-- Arch Linux (or other distro) with Hyprland.
+- **Arch Linux** (or any distro with Hyprland)
+- `hyprland`
 - `gtk4`
 - `gtk4-layer-shell`
 - `cmake`
 - `gcc` or `clang`
+- `git`
+- `make`
 
-## Build Instructions
+## Installation Guide (Step-by-Step)
 
-1. Create a build directory:
-   ```bash
-   mkdir build && cd build
-   ```
-2. Configure and build:
-   ```bash
-   cmake ..
-   make
-   ```
-3. Run:
-   ```bash
-   ./launcher
-   ```
+Follow these exact steps to install and run the launcher.
+
+### 1. Clone the Repository
+
+Open your terminal and run:
+
+```bash
+git clone https://github.com/DuckZ01/HyprSwitcher.git
+cd HyprSwitcher
+```
+
+### 2. Build the Application
+
+Create a build directory and compile the source code:
+
+```bash
+mkdir build
+cd build
+cmake ..
+make
+```
+
+### 3. Test Run
+
+You can run the launcher directly to see if it works:
+
+```bash
+./HyprSwitcher
+```
+
+(Press `Esc` to close it).
+
+### 4. Install (Optional)
+
+You can move the binary to a global location if you prefer, or just keep it here.
+
+```bash
+sudo cp ./HyprSwitcher /usr/local/bin/hyprswitcher
+```
 
 ## Hyprland Configuration
 
-To enable the blur effect, add this to your `hyprland.conf`:
+To make the window transparent with a nice blur, and to open it with `Alt + Space`, edit your `hyprland.conf`.
+
+### 1. Open Config
+
+```bash
+nano ~/.config/hypr/hyprland.conf
+```
+
+### 2. Add Window Rules
+
+Add these lines to enable the blur effect for the launcher namespace:
 
 ```ini
+# Blur and styling for HyprSwitcher
 layerrule = blur, launcher
 layerrule = ignorezero, launcher
+layerrule = animation popin 80%, launcher
 ```
 
-## Keybindings
+### 3. Add Keybinding
 
-You might want to bind a key to open the launcher:
+Add this line to bind `Alt + Space` to open the launcher:
 
 ```ini
-bind = SUPER, D, exec, /path/to/launcher/build/launcher
+# Replace /path/to/HyprSwitcher with the actual path, or just 'hyprswitcher' if installed globally
+bind = ALT, SPACE, exec, /path/to/HyprSwitcher/build/HyprSwitcher
+# OR if you installed to /usr/local/bin:
+# bind = ALT, SPACE, exec, hyprswitcher
 ```
+
+### 4. Reload Hyprland
+
+Save the config and reload Hyprland (usually `Super + M` or `hyprctl reload`).
+
+Now press `Alt + Space`, and your launcher should appear in the center of the screen!

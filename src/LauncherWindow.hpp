@@ -11,6 +11,13 @@ public:
 
   void show();
 
+  friend gboolean on_key_press_static(GtkEventControllerKey *controller,
+                                      guint keyval, guint keycode,
+                                      GdkModifierType state,
+                                      gpointer user_data);
+  friend void search_changed_cb(GtkSearchEntry *entry,
+                                gpointer user_data); // if needed
+
 private:
   void setup_ui();
   void load_css();
