@@ -11,14 +11,16 @@ public:
 
   void show();
 
-  friend gboolean on_key_press_static(GtkEventControllerKey *controller,
+  static gboolean on_key_press_static(GtkEventControllerKey *controller,
                                       guint keyval, guint keycode,
                                       GdkModifierType state,
                                       gpointer user_data);
-  friend void on_focus_change_static(GObject *object, GParamSpec *pspec,
+  static void on_focus_change_static(GObject *object, GParamSpec *pspec,
                                      gpointer user_data);
-  friend void search_changed_cb(GtkSearchEntry *entry,
-                                gpointer user_data); // if needed
+  static void on_search_changed_static(GtkSearchEntry *entry,
+                                       gpointer user_data);
+  static void on_app_activated_static(GtkFlowBox *box, GtkFlowBoxChild *child,
+                                      gpointer user_data);
 
 private:
   void setup_ui();

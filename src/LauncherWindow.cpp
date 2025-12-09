@@ -3,28 +3,10 @@
 #include <iostream>
 
 // Callback wrappers
-static void search_changed_cb(GtkSearchEntry *entry, gpointer user_data) {
-  auto *window = static_cast<LauncherWindow *>(user_data);
-  // Access private member via helper public method or friend, but for
-  // simplicity here we assume access or move logic Actually, we can't access
-  // private 'on_search_changed' simply. Let's use a lambda with swap or just
-  // cast: This is C++ calling C API callbacks. Since we are inside the class
-  // implementation, we can just call a member function if we were using gtkmm,
-  // but with raw C signals we need static functions.
-  // For cleaner code, I'll rely on the static_cast pattern.
-  // BUT 'on_search_changed' is private.
-  // I will make the callbacks static members or external functions for
-  // simplicity in this generated code or just implementation details in the cpp
-  // file.
-}
+// Callback wrappers removed, using static members
 
 // Forward declarations of static callbacks
-static void on_search_changed_static(GtkSearchEntry *entry, gpointer user_data);
-static void on_app_activated_static(GtkFlowBox *box, GtkFlowBoxChild *child,
-                                    gpointer user_data);
-static gboolean on_key_press_static(GtkEventControllerKey *controller,
-                                    guint keyval, guint keycode,
-                                    GdkModifierType state, gpointer user_data);
+// Forward declarations removed
 
 LauncherWindow::LauncherWindow(GtkApplication *app) {
   m_app_model = std::make_unique<AppModel>();
@@ -188,64 +170,36 @@ void LauncherWindow::on_app_activated(GtkFlowBox *box, GtkFlowBoxChild *child) {
 }
 
 // Static Trampolines
-static void on_search_changed_static(GtkSearchEntry *entry,
-                                     gpointer user_data) {
+void LauncherWindow::on_search_changed_static(GtkSearchEntry *entry,
+                                              gpointer user_data) {
   auto *self = static_cast<LauncherWindow *>(user_data);
   self->on_search_changed(entry);
 }
 
-static void on_app_activated_static(GtkFlowBox *box, GtkFlowBoxChild *child,
-                                    gpointer user_data) {
+void LauncherWindow::on_app_activated_static(GtkFlowBox *box,
+                                             GtkFlowBoxChild *child,
+                                             gpointer user_data) {
   auto *self = static_cast<LauncherWindow *>(user_data);
   self->on_app_activated(box, child);
 }
 
-static gboolean on_key_press_static(GtkEventControllerKey *controller,
-                                    guint keyval, guint keycode,
-                                    GdkModifierType state, gpointer user_data) {
+gboolean LauncherWindow::on_key_press_static(GtkEventControllerKey *controller,
+                                             guint keyval, guint keycode,
+                                             GdkModifierType state,
+                                             gpointer user_data) {
   if (keyval == GDK_KEY_Escape) {
-    auto *self = static_cast<LauncherWindow *>(user_data);
-    // Quit
-    GtkApplication *app = GTK_APPLICATION(gtk_window_get_application(GTK_WINDOW(
-        self->m_window))); // Private member access issue if m_window is private
-    // Actually 'self->m_window' is accessible here because we are in the .cpp
-    // file of the class (or friend). Wait, C++ visibility rules apply.
-    // on_key_press_static is a free function. It cannot access private members
-    // unless it's a friend. I will make them friends or correct the design. For
-    // speed, let's just make m_window public or add a method 'close()'.
-    // LauncherWindow::close() { g_application_quit... }
-    // Let's assume I add close() method if I edit the header, but I already
-    // wrote the header. I can just cheat and cast user_data to LauncherWindow
-    // and use a public method? 'm_window' is private. Let's assume I fix the
-    // header or just access it via a public getter? No getter. I will
-    // re-declare the class structure in my head: I'll update the header or just
-    // simply use `gtk_window_close` on the GtkWindow pointer if I had it. Since
-    // I can't change the header *easily* right now without another tool call (I
-    // can, but I want to be efficient). I will just implement a 'close' method
-    // in the class and call it. BUT I need to declare it in the header. I'll
-    // assume 'on_key_press_static' is a friend or just ignore encapsulation for
-    // this strictness level? No, C++ will fail compile. I will update the
-    // header to include `friend` declarations or a close method.
-
-    // Actually, I can just use `gtk_application_quit` via
-    // `g_application_get_default()` if there is only one app.
+    // auto *self = static_cast<LauncherWindow *>(user_data);
     g_application_quit(G_APPLICATION(g_application_get_default()));
     return TRUE;
   }
-  return TRUE;
-}
-return FALSE;
+  return FALSE;
 }
 
-static void on_focus_change_static(GObject *object, GParamSpec *pspec,
-                                   gpointer user_data) {
-  auto *self = static_cast<LauncherWindow *>(user_data);
+void LauncherWindow::on_focus_change_static(GObject *object, GParamSpec *pspec,
+                                            gpointer user_data) {
+  // auto *self = static_cast<LauncherWindow *>(user_data);
   GtkWindow *window = GTK_WINDOW(object);
   if (!gtk_window_is_active(window)) {
-    // GtkApplication* app =
-    // GTK_APPLICATION(gtk_window_get_application(window));
-    // g_application_quit(app);
-    // Safest:
     g_application_quit(G_APPLICATION(g_application_get_default()));
   }
 }
