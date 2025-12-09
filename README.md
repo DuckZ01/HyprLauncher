@@ -37,6 +37,7 @@ cd build
 cmake ..
 make
 ```
+Also move the resources folder into the build after cause it wont work otherwise
 
 ### 3. Test Run
 
