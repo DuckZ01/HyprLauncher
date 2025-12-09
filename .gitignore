@@ -4,4 +4,4 @@ build/
 *.o
 *.a
 launcher
-HyprSwitcher
+HyprLauncher

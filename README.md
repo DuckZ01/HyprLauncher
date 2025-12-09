@@ -1,4 +1,4 @@
-# HyprSwitcher
+# HyprLauncher
 
 A C++ application launcher built with GTK4 and gtk4-layer-shell, designed for Hyprland.
 It features a modern design with rounded corners, transparency, and blur support, behaving similarly to Rofi but with a native GTK feel.
@@ -23,8 +23,8 @@ Follow these exact steps to install and run the launcher.
 Open your terminal and run:
 
 ```bash
-git clone https://github.com/DuckZ01/HyprSwitcher.git
-cd HyprSwitcher
+git clone https://github.com/DuckZ01/HyprLauncher.git
+cd HyprLauncher
 ```
 
 ### 2. Build the Application
@@ -43,7 +43,7 @@ make
 You can run the launcher directly to see if it works:
 
 ```bash
-./HyprSwitcher
+./HyprLauncher
 ```
 
 (Press `Esc` to close it).
@@ -53,7 +53,7 @@ You can run the launcher directly to see if it works:
 You can move the binary to a global location if you prefer, or just keep it here.
 
 ```bash
-sudo cp ./HyprSwitcher /usr/local/bin/hyprswitcher
+sudo cp ./HyprLauncher /usr/local/bin/hyprlauncher
 ```
 
 ## Hyprland Configuration
@@ -71,7 +71,7 @@ nano ~/.config/hypr/hyprland.conf
 Add these lines to enable the blur effect for the launcher namespace:
 
 ```ini
-# Blur and styling for HyprSwitcher
+# Blur and styling for HyprLauncher
 layerrule = blur, launcher
 layerrule = ignorezero, launcher
 layerrule = animation popin 80%, launcher
@@ -82,10 +82,10 @@ layerrule = animation popin 80%, launcher
 Add this line to bind `Alt + Space` to open the launcher:
 
 ```ini
-# Replace /path/to/HyprSwitcher with the actual path, or just 'hyprswitcher' if installed globally
-bind = ALT, SPACE, exec, /path/to/HyprSwitcher/build/HyprSwitcher
+# Replace /path/to/HyprLauncher with the actual path, or just 'hyprlauncher' if installed globally
+bind = ALT, SPACE, exec, /path/to/HyprLauncher/build/HyprLauncher
 # OR if you installed to /usr/local/bin:
-# bind = ALT, SPACE, exec, hyprswitcher
+# bind = ALT, SPACE, exec, hyprlauncher
 ```
 
 ### 4. Reload Hyprland
