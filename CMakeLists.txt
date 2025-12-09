@@ -8,25 +8,25 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK4 REQUIRED gtk4)
 pkg_check_modules(GTK4_LAYER_SHELL REQUIRED gtk4-layer-shell-0)
 
-add_executable(launcher
+add_executable(HyprLauncher
     src/main.cpp
     src/AppModel.cpp
     src/LauncherWindow.cpp
 )
 
-target_include_directories(launcher PRIVATE src)
+target_include_directories(HyprLauncher PRIVATE src)
 
-target_link_libraries(launcher PRIVATE
+target_link_libraries(HyprLauncher PRIVATE
     ${GTK4_LIBRARIES}
     ${GTK4_LAYER_SHELL_LIBRARIES}
 )
 
-target_compile_options(launcher PRIVATE
+target_compile_options(HyprLauncher PRIVATE
     ${GTK4_CFLAGS_OTHER}
     ${GTK4_LAYER_SHELL_CFLAGS_OTHER}
 )
 
-target_include_directories(launcher PRIVATE
+target_include_directories(HyprLauncher PRIVATE
     ${GTK4_INCLUDE_DIRS}
     ${GTK4_LAYER_SHELL_INCLUDE_DIRS}
 )
