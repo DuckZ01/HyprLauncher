@@ -1,4 +1,5 @@
 #include "LauncherWindow.hpp"
+#include <glib-object.h>
 #include <gtk4-layer-shell.h>
 #include <iostream>
 
@@ -87,7 +88,8 @@ void LauncherWindow::setup_ui() {
 
   // FlowBox for App Grid
   m_flowbox = gtk_flow_box_new();
-  gtk_flow_box_set_valign(GTK_FLOW_BOX(m_flowbox), GTK_ALIGN_START);
+  // gtk_flow_box_set_valign(GTK_FLOW_BOX(m_flowbox), GTK_ALIGN_START); //
+  // REMOVED: Obsolete in GTK4
   gtk_flow_box_set_max_children_per_line(GTK_FLOW_BOX(m_flowbox), 5);
   gtk_flow_box_set_selection_mode(GTK_FLOW_BOX(m_flowbox),
                                   GTK_SELECTION_SINGLE);
